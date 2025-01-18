@@ -9,8 +9,8 @@ export default async function Home() {
   return (
     <div className="flex justify-center items-center h-svh">
       <div>
-        <p>Welcome { session ? session?.user?.name : "Guest" }!</p>
-        {session ? <SignOut /> : <SignIn />}
+        <h1 className=" text-7xl">Discover Stories That Inspire.</h1>
+        
       </div>
     </div>
   );

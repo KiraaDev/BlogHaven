@@ -2,20 +2,52 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+@font-face {
+  font-family: 'Italiana';
+  src: url('../assets/fonts/Italiana/Italiana-Regular.ttf') format('woff2'),
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
-}
+
 
 body {
-  color: var(--foreground);
-  background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: 'Italiana', serif;
 }
+
+
+.sidebar {
+    position: fixed;
+    top: 0;
+    left: -250px; /* Sidebar hidden off-screen */
+    width: 220px;
+    height: 100%;
+    background-color: #1E1E1E;
+    transition: all 0.3s ease;
+    z-index: 100;
+}
+
+.sidebar.active {
+    left: 0; /* Sidebar slides into view */
+}
+
+.sidebar ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.sidebar li {
+    padding: 20px;
+    border-bottom: 1px solid #ddd;
+}
+
+.slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ccc;
+    transition: 0.4s;
+    border-radius: 34px;
+}
+
