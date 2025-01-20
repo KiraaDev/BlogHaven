@@ -1,10 +1,28 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { menuItems } from '@/config/menu';
+import SignIn from '../sign-in';
+import { useSession } from 'next-auth/react';
+import { usePathname } from 'next/navigation';
+import Link from 'next/link'
+import SignOut from '../sign-out';
 
 function NavBar() {
     const [navbar, setNavbar] = useState(false);
+    const [loading, setLoading] = useState<boolean>(true);
+
+    const { data: session, status } = useSession();
+    const loacation = usePathname();
+
+    useEffect(() => {
+        if (status === "loading") {
+            setLoading(true);
+        } else {
+            setLoading(false);
+        }
+    }, [status]);
+
 
     return (
         <nav>
@@ -43,7 +61,7 @@ function NavBar() {
                     </span>
                 </a>
                 <button onClick={() => setNavbar(!navbar)} type="button" className="inline-flex items-center p-2 w-10 h-10 justify-center text-sm  text-white rounded-lg md:hidden ">
-                    <svg className='dark:fill-white transition-none dark:transition-none' xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24px" height="24px">
+                    <svg className='transition-none dark:transition-none' xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24px" height="24px">
                         <rect x="2" y="11" width="20" height="2" />
                         <rect x="2" y="5" width="20" height="2" />
                         <rect x="2" y="17" width="20" height="2" />
@@ -54,14 +72,27 @@ function NavBar() {
                         {
                             menuItems.map((item, index) => (
                                 <li key={index}>
-                                    <a href={item.to} onClick={() => setNavbar(!navbar)} className='block py-2 px-3 text-2xl font-semibold text-[#FAFAFA] dark:text-[#383838] rounded md:bg-transparent md:p-0  '>{item.title}</a>
+                                    <Link href={item.to} onClick={() => setNavbar(!navbar)} className='block py-2 px-3 text-lg font-semibold text-[#FAFAFA] dark:text-[#383838] rounded md:bg-transparent md:p-0'
+                                    >{item.title}</Link>
                                 </li>
                             ))
                         }
+                        <div className=' flex gap-10'>
+                            {loading ? (<img src={'/assets/loader.gif'} alt='loader' />)
+                                :
+                                session?.user ? (
+                                    <div>
+                                        <img src={session.user.image || ''} alt="avatar" className='h-10 rounded-full' />
+                                        <SignOut />
+                                    </div>
+                                )
+                                    : <SignIn />
+                            }
+                        </div>
                     </ul>
                 </div>
                 {/* Sidebar Menu */}
-                <div className={`sidebar ${navbar ? 'active md:hidden dark:bg-[#FAFAFA]' : ''}`}>
+                <div className={`sidebar ${navbar ? 'active md:hidden ' : ''}`}>
                     <div className='flex justify-center items-center'>
                         <a href="/" className="flex items-center space-x-3 rtl:space-x-reverse">
                             <svg version="1.0" xmlns="http://www.w3.org/2000/svg"
@@ -69,7 +100,7 @@ function NavBar() {
                                 preserveAspectRatio="xMidYMid meet" className='h-14 md:h-16'>
 
                                 <g transform="translate(0.000000,500.000000) scale(0.100000,-0.100000)"
-                                    stroke="none" className=' fill-[#fff] dark:fill-[#383838] transition-none dark:transition-none'>
+                                    stroke="none" className=' fill-[#030303] dark:fill-[#383838] transition-none dark:transition-none'>
                                     <path d="M2340 4343 c-219 -34 -343 -81 -495 -183 -223 -151 -378 -372 -452
                                     -645 -20 -72 -26 -123 -30 -252 l-6 -163 612 0 611 0 0 125 0 125 -450 0
                                     c-516 0 -461 -14 -435 108 69 330 306 561 628 612 48 8 122 11 195 7 425 -20
@@ -107,8 +138,8 @@ function NavBar() {
                         </li>
                     </ul>
                 </div>
-            </div>
-        </nav>
+            </div >
+        </nav >
     );
 }
 

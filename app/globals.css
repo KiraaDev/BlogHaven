@@ -3,21 +3,23 @@
 @tailwind utilities;
 
 @font-face {
-  font-family: 'Italiana';
-  src: url('../assets/fonts/Italiana/Italiana-Regular.ttf') format('woff2'),
+    font-family: 'Merriweather';
+    src: url('../public/assets/fonts/Merriweather/Merriweather-Regular.ttf') format('woff2'),
 }
 
 
 
 body {
-  font-family: 'Italiana', serif;
+
+    font-family: 'Merriweather', serif;
 }
 
 
 .sidebar {
     position: fixed;
     top: 0;
-    left: -250px; /* Sidebar hidden off-screen */
+    left: -250px;
+    /* Sidebar hidden off-screen */
     width: 220px;
     height: 100%;
     background-color: #1E1E1E;
@@ -26,7 +28,8 @@ body {
 }
 
 .sidebar.active {
-    left: 0; /* Sidebar slides into view */
+    left: 0;
+    /* Sidebar slides into view */
 }
 
 .sidebar ul {
@@ -51,3 +54,35 @@ body {
     border-radius: 34px;
 }
 
+/* 
+Sign in button  */
+
+.signin {
+    float: right;
+    max-width: 320px;
+    display: flex;
+    padding: 0.5rem 1.4rem;
+    font-size: 0.875rem;
+    line-height: 1.25rem;
+    font-weight: 700;
+    text-align: center;
+    font-family: "Montserrat", sans-serif;
+    vertical-align: middle;
+    align-items: center;
+    border-radius: 0.5rem;
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    gap: 0.75rem;
+    color: #eeeeee;
+    background-color: #555553;
+    cursor: pointer;
+    transition: all 0.25s cubic-bezier(0, 0.87, 0.12, 1);
+}
+
+.signin:active {
+    transform: scale(0.975);
+}
+
+button svg {
+    height: 24px;
+    width: auto;
+}
