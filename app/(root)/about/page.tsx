@@ -3,7 +3,7 @@ export default function AboutPage(){
 
     return(
        <div>
-        <h1>HELLO WORLD</h1>
+        <h1>BURDUGOL</h1>
        </div>
     )
 }
