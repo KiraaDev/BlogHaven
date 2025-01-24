@@ -1,4 +1,4 @@
-import { MongoClient, ServerApiVersion } from "mongodb"
+import { MongoClient, ServerApiVersion, Db } from "mongodb"
 
 if (!process.env.MONGODB_URI) {
     throw new Error('Invalid/Missing environment variable: "MONGODB_URI"')
@@ -11,6 +11,8 @@ const options = {
     strict: true,
     deprecationErrors: true,
   },
+  connectTimeoutMS: 30000, // 30 seconds
+  socketTimeoutMS: 30000, 
 }
 let client: MongoClient
  
@@ -31,11 +33,19 @@ if (process.env.NODE_ENV === "development") {
 }
 
 export default client;
-
+let db: Db;
 
 export const connectDB = async () => {
-  const connection = await client.connect();
-  const db = connection.db();
+  if (client && db) return { client, db };
 
-  return db;
-}
+  try {
+    client = new MongoClient(uri, options);
+    await client.connect();
+    db = client.db();
+    console.log("Connected to MongoDB");
+    return { client, db };
+  } catch (error) {
+    console.error('Error connecting to MongoDB:', error);
+    throw new Error('MongoDB connection failed');
+  }
+};
