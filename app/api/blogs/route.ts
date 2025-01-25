@@ -15,3 +15,15 @@ export async function GET() {
         return NextResponse.json({ message: 'Failed to fetch blogs' }, { status: 500 });
     }
 }
+
+export async function POST(){
+    try {
+        
+        // Connect to the database
+        const { db } = await connectDB();
+
+    } catch (error) {
+        console.error('Failed to add blog:', error);
+        return NextResponse.json({ message: 'Failed to add blog' }, { status: 500 });
+    }
+}

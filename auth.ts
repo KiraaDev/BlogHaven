@@ -9,7 +9,8 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
     ...authConfig,
     callbacks: {
         async signIn({ user, account, profile }) {
-            const db = await connectDB();
+            const { db } = await connectDB();
+            
             const usersCollection = db.collection('users');
 
             const existingUser = await usersCollection.findOne({ email: user.email });
