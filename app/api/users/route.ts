@@ -1,4 +1,5 @@
 import { connectDB } from '@/lib/mongodb';
+import { IUser } from '@/types/IUser';
 import { NextRequest, NextResponse } from 'next/server';
 
 export async function GET() {
@@ -7,10 +8,11 @@ export async function GET() {
     const { db } = await connectDB();
 
     // Fetch all users from the 'users' collection
-    const users = await db.collection('users').find().toArray();
+    const users = await db.collection('users').find().toArray() as IUser[];
 
     // Return users as JSON
     return NextResponse.json(users);
+
   } catch (error) {
     console.error('Failed to fetch users:', error);
     return NextResponse.json({ message: 'Failed to fetch users' }, { status: 500 });

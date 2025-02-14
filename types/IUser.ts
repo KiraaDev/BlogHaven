@@ -1,4 +1,3 @@
-import { IBlog } from './IBlog'
 import { ObjectId } from 'mongodb'
 
 export enum UserRole {
@@ -7,13 +6,13 @@ export enum UserRole {
 }
 
 export interface IUser {
-    _id: ObjectId;
-    name: string;
-    email: string;
-    image: string;
-    password?: string;
+    _id?: ObjectId;
+    name?: string | null;
+    email?: string | null;
+    image?: string | null;
+    emailVerified?: Date | null;
     role: UserRole;
     createdAt: Date;
-    updatedAt?: Date; 
-    blogs?: IBlog[],
-}
+    updatedAt: Date;
+  }
+  

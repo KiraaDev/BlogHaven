@@ -13,7 +13,7 @@ function NavBar() {
     const [loading, setLoading] = useState<boolean>(true);
 
     const { data: session, status } = useSession();
-    const loacation = usePathname();
+    const location = usePathname();
 
     useEffect(() => {
         if (status === "loading") {

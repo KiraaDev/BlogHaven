@@ -1,4 +1,5 @@
 {
+  "type": "module",
   "name": "nextauth",
   "version": "0.1.0",
   "private": true,
@@ -15,7 +16,8 @@
     "next": "15.1.4",
     "next-auth": "^5.0.0-beta.25",
     "react": "^19.0.0",
-    "react-dom": "^19.0.0"
+    "react-dom": "^19.0.0",
+    "undici": "^7.3.0"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3",
